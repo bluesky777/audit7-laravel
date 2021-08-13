@@ -11,4 +11,5 @@ scripts:
   - kool start
   - kool run composer install
   - kool run artisan key:generate
-  - kool run artisan php artisan jwt:secret
+  - kool run artisan jwt:secret
+  # composer require tymon/jwt-auth:^1.0.2 # Esto por si acaso, pero no es de aquí. Nunca descomentar.
