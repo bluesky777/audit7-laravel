@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\AuditSystem\Models;
+<?php namespace App\Http\Models;
 
 
 use JWTAuth;
@@ -16,11 +16,11 @@ class DatosDescarga
     {
         if ($tipo_usu == 'Auditor' || $tipo_usu == 'Admin' || $tipo_usu == 'Tesorero asociación') {
             if ($asociacion_id) {
-                $consulta = 'SELECT d.* FROM au_distritos d 
+                $consulta = 'SELECT d.* FROM au_distritos d
                     WHERE d.asociacion_id=? and d.deleted_at is null;';
                 return DB::select($consulta, [$asociacion_id]);
             }else{
-                $consulta = 'SELECT * FROM au_distritos d 
+                $consulta = 'SELECT * FROM au_distritos d
                     WHERE d.deleted_at is null;';
                 return DB::select($consulta);
             }
@@ -28,18 +28,18 @@ class DatosDescarga
 
         return [];
     }
-    
+
 
     public static function iglesias($tipo_usu, $asociacion_id=false)
     {
         if ($tipo_usu == 'Auditor' || $tipo_usu == 'Admin' || $tipo_usu == 'Tesorero asociación') {
             if ($asociacion_id) {
-                $consulta = 'SELECT i.*, d.asociacion_id FROM au_iglesias i 
+                $consulta = 'SELECT i.*, d.asociacion_id FROM au_iglesias i
                     INNER JOIN au_distritos d ON d.id=i.distrito_id and d.deleted_at is null
                     WHERE d.asociacion_id=? and i.deleted_at is null;';
                 return DB::select($consulta, [$asociacion_id]);
             }else{
-                $consulta = 'SELECT * FROM au_iglesias i 
+                $consulta = 'SELECT * FROM au_iglesias i
                     WHERE i.deleted_at is null;';
                 return DB::select($consulta);
             }
@@ -47,5 +47,5 @@ class DatosDescarga
 
         return [];
     }
-    
+
 }

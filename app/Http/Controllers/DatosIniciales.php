@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\AuditSystem;
+<?php namespace App\Http\Controllers;
 
 use Request;
 use Hash;
@@ -10,26 +10,26 @@ class DatosIniciales {
 
 	public function insertarUnionAudit()
 	{
-		
+
 		$uniones 	= DB::select('SELECT * from au_uniones;');
-		
+
 		if (count($uniones) == 0) {
 			$now = Carbon::now('America/Bogota');
-			
+
 			$consulta = "INSERT INTO au_uniones
 					(id, nombre, alias, codigo, created_at, updated_at)
 				VALUES
 					(1, 'UNION COLOMBIANA DEL NORTE', 'AGC111', 'AGC111', '".$now."', '".$now."')
 					;";
-					
+
 			DB::insert($consulta);
-			
+
 			$consulta = "INSERT INTO au_auditorias
 					(fecha, hora, iglesia_id, created_at, updated_at)
 				VALUES
 					('2018-10-01', '10:10:00am', 1, '".$now."', '".$now."')
 					;";
-					
+
 			DB::insert($consulta);
 		}
 		return 'Insertando';
@@ -38,12 +38,12 @@ class DatosIniciales {
 
 	public function insertarAsociaciones()
 	{
-		
+
 		$taxis 		= DB::select('SELECT * from au_asociaciones;');
-		
+
 		if (count($taxis) == 0) {
 			$now = Carbon::now('America/Bogota');
-			
+
 			$consulta = "INSERT INTO au_asociaciones
 					(id, nombre, alias, codigo, union_id, created_at, updated_at)
 				VALUES
@@ -56,18 +56,18 @@ class DatosIniciales {
 					(7, 'ASOCIACIÓN CENTRO OCCIDENTAL', 'AGCW11', 'AGCW11' , 1, '".$now."', '".$now."'),
 					(8, 'ASOCIACIÓN SUR OCCIDENTAL', 'AGCS11', 'AGCS11' , 1, '".$now."', '".$now."')
 					;";
-					
+
 			DB::insert($consulta);
 		}
 		return 'Insertando';
 	}
-	
+
 
 	public function insertarDistritos()
 	{
-		
+
 		$elems 		= DB::select('SELECT * from au_distritos;');
-		
+
 		//if (count($elems) == 0) {
 		if (true) {
 			$now = Carbon::now('America/Bogota');
@@ -103,7 +103,7 @@ class DatosIniciales {
 					(26, 'Getsemani', 'DSVILGE01', 'DSVILGE01', 2,  1, '".$now."', '".$now."'),
 					(27, 'Villa del Rosario', 'DSVILLA01', 'DSVILLA01', 2,  1, '".$now."', '".$now."'),
 					(28, 'Tame Enmanuel', 'DSTAMEE01', 'DSTAMEE01', 2,  1, '".$now."', '".$now."')
-				
+
 					;";
 			*/
 			$consulta = "INSERT INTO au_distritos
@@ -137,10 +137,10 @@ class DatosIniciales {
 					(54, 'Getsemani', 'DSVILGE01', 'DSVILGE01', 2,  1, '".$now."', '".$now."'),
 					(55, 'Villa del Rosario', 'DSVILLA01', 'DSVILLA01', 2,  1, '".$now."', '".$now."'),
 					(56, 'Tame Enmanuel', 'DSTAMEE01', 'DSTAMEE01', 2,  1, '".$now."', '".$now."')
-				
+
 					;";
 			DB::insert($consulta);
-			
+
 		}
 		return 'Insertando';
 	}
@@ -148,13 +148,13 @@ class DatosIniciales {
 
 	public function insertarUsuarios()
 	{
-		
+
 		$users 		= DB::select('SELECT * from au_users;');
-		
+
 		if (count($users) == 0) {
-		
+
 			$now = Carbon::now('America/Bogota');
-			
+
 			$consulta = "INSERT INTO au_users
 					(id, nombres, apellidos, email, username, password, tipo, sexo, union_id, asociacion_id, created_at, updated_at)
 				VALUES
@@ -165,7 +165,7 @@ class DatosIniciales {
 					(5, 'Cesar', 'Saldariaga', null, 'cesar',  '123', 'Tesorero asociación', 'M', null, 2, '".$now."', '".$now."'),
 					(6, 'Felix', 'Díaz', null, 'felix',  '123', 'Pastor', 'M', null, 2, '".$now."', '".$now."')
 					;";
-					
+
 			DB::insert($consulta);
 		}
 		return 'Insertando';
@@ -175,13 +175,13 @@ class DatosIniciales {
 
 	public function insertarIglesias()
 	{
-		
+
 		$iglesias 		= DB::select('SELECT * from au_iglesias;');
-		
+
 		//if (count($iglesias) == 0) {
 		if (true) {
 			$now = Carbon::now('America/Bogota');
-			
+
 			$consulta = "INSERT INTO au_iglesias
 					(nombre, alias, codigo, distrito_id, created_at, updated_at)
 				VALUES
@@ -404,7 +404,7 @@ class DatosIniciales {
 					('Voz de Salvación -  Palestina', 'CVOZDE01', 'CVOZDE01',  41,'".$now."', '".$now."'),
 					('Zulia  -  D. Atalaya', 'CZULIA01', 'CZULIA01',  37,'".$now."', '".$now."')
 					;";
-					
+
 			DB::insert($consulta);
 		}
 		return 'Insertando';

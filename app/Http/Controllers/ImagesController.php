@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\AuditSystem;
+<?php namespace App\Http\Controllers;
 
 use Request;
 use Hash;
@@ -6,8 +6,8 @@ use File;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\AuditSystem\DatosIniciales;
-use App\Http\Controllers\AuditSystem\Sincronizar;
+use App\Http\Controllers\DatosIniciales;
+use App\Http\Controllers\Sincronizar;
 use Carbon\Carbon;
 use \Log;
 use App\Models\ImagenModel;
@@ -15,51 +15,51 @@ use App\Models\ImagenModel;
 use DB;
 
 class ImagesController extends Controller {
-	
+
 	public function getIndex(){
         $consulta   = "SELECT * FROM au_images WHERE deleted_at is null";
         $images     = DB::select($consulta);
         return $images;
     }
-    
-	
+
+
 	public function putQuitarIglesia(){
         $id             = Request::input('imagen_id');
-        
+
         $consulta   = "UPDATE au_images SET iglesia_id=NULL WHERE id=?";
         $images     = DB::update($consulta, [$id]);
         return 'Quitada';
     }
-    
-	
+
+
 	public function putUpdate(){
         $id             = Request::input('id');
         $descripcion    = Request::input('descripcion');
-        
+
         $consulta   = "UPDATE au_images SET descripcion=? WHERE id=?";
         $images     = DB::update($consulta, [$descripcion, $id]);
         return 'Guardado';
     }
-    
-	
+
+
 	public function putAddToIglesia(){
         $imagen_id 		= Request::input('imagen_id');
         $iglesia_id 	= Request::input('iglesia_id');
-        
+
         $consulta   = "UPDATE au_images SET iglesia_id=? WHERE id=?";
         $images     = DB::update($consulta, [$iglesia_id, $imagen_id]);
         return 'Asignado';
     }
-    
-    
-    
+
+
+
 	public function postStore()
 	{
         //$user = User::fromToken();
         $now 				= Carbon::now('America/Bogota');
         $user_id    		= Request::input("user_id");
         $asociacion_id 		= Request::input("asociacion_id");
-        
+
 		$folderName = 'user_'.$user_id;
 		$folder = 'images/perfil/'.$folderName;
 
@@ -78,12 +78,12 @@ class ImagesController extends Controller {
 		$i = 0;
 		while(file_exists($folder.'/'. $miImg)){
 			$i++;
-			$miImg = $info[0]."(".$i.")".".".$info[1];              
+			$miImg = $info[0]."(".$i.")".".".$info[1];
 		}
 
 		//guardamos la imagen con otro nombre ej foto(1).jpg || foto(2).jpg etc
 		$file->move($folder, $miImg);
-		
+
 		$newImg 			    	= new ImagenModel;
 		$newImg->nombre 	    	= $folderName.'/'.$miImg;
 		$newImg->user_id 	    	= $user_id;
@@ -115,11 +115,11 @@ class ImagesController extends Controller {
 		}else{
 			Log::info($id . ' -- Al parecer NO existe imagen: ' . $filename);
 		}
-		
-		//ImagenModel::eliminar_imagen_y_enlaces($id);
-		
 
-		
+		//ImagenModel::eliminar_imagen_y_enlaces($id);
+
+
+
 		return 'Eliminada';
 	}
 

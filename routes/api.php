@@ -18,16 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller('au_imagenes', 'AuditSystem\ImagesController');
-Route::controller('au_propiedad', 'AuditSystem\PropiedadController');
-Route::controller('au_iglesias', 'AuditSystem\IglesiasController');
-Route::controller('au_asociaciones', 'AuditSystem\AsociacionesController');
-Route::controller('au_uniones', 'AuditSystem\UnionesController');
-Route::controller('auditorias', 'AuditSystem\AuditoriasController');
-Route::controller('remesas', 'AuditSystem\RemesasController');
-Route::controller('au_usuario', 'AuditSystem\AuUsuarioController');
-Route::controller('au_usuarios', 'AuditSystem\AuUsuariosController');
-Route::controller('au_observaciones', 'AuditSystem\ObservacionesController');
-Route::controller('au_login', 'AuditSystem\LoginController');
-Route::controller('au_comparar', 'AuditSystem\Informes\CompararController');
-Route::controller('au_entidades', 'AuditSystem\Entidades\EntidadesController');
+AdvancedRoute::controller('login', 'LoginController');
+
+AdvancedRoute::controller('au_imagenes', 'ImagesController');
+AdvancedRoute::controller('au_propiedad', 'PropiedadController');
+AdvancedRoute::controller('au_iglesias', 'IglesiasController');
+AdvancedRoute::controller('au_asociaciones', 'AsociacionesController');
+AdvancedRoute::controller('au_uniones', 'UnionesController');
+AdvancedRoute::controller('auditorias', 'AuditoriasController');
+AdvancedRoute::controller('remesas', 'RemesasController');
+AdvancedRoute::controller('au_usuario', 'AuUsuarioController');
+AdvancedRoute::controller('au_usuarios', 'AuUsuariosController');
+AdvancedRoute::controller('au_observaciones', 'ObservacionesController');
+AdvancedRoute::controller('au_login', 'LoginController');
+AdvancedRoute::controller('au_comparar', 'Informes\CompararController');
+AdvancedRoute::controller('au_entidades', 'Entidades\EntidadesController');

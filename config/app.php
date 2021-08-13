@@ -177,7 +177,6 @@ return [
         /*
          * Instalados por m√≠
          */
-        \hisorange\BrowserDetect\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
     ],
