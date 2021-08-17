@@ -2,12 +2,11 @@
 
 use Request;
 use Hash;
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DatosIniciales;
 use App\Http\Sincronizar;
 use App\Http\Models\DatosDescarga;
-use App\Http\Models\AuUser;
+use App\Models\User;
 use Carbon\Carbon;
 use \Log;
 
@@ -60,7 +59,7 @@ class LoginController extends Controller {
             $usuario = $usuario[0];
 
 
-            if(AuUser::hasDivisionRole($usuario->tipo, true)){
+            if(User::hasDivisionRole($usuario->tipo, true)){
 
                 $consulta 	= 'SELECT * FROM au_uniones WHERE deleted_at is null';
                 $usuario->uniones 	= DB::select($consulta);
