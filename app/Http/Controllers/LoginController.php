@@ -15,10 +15,38 @@ use DB;
 
 class LoginController extends Controller {
 
-    public function getIndex() {
-        return ['Hola mundo'];
+    public function getLoadUser() {
+        return ["sfv", "9887u ff", "efvdf"];
     }
 
+
+    public function postLogin()
+    {
+        $credentials = request(['email', 'password']);
+
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    public function postMe()
+    {
+        return response()->json(auth()->user());
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function postLogout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
 
 	public function postLoguear()
 	{

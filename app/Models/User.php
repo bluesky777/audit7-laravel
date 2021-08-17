@@ -15,7 +15,7 @@ class User extends Authenticatable implements JWTSubject
     public static $perfil_path = 'perfil/';
 
 
-
+    protected $table = 'au_users';
 
     public static function identificar()
     {
