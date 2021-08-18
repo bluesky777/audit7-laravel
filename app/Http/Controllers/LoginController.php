@@ -21,13 +21,17 @@ class LoginController extends Controller {
 
     public function postLogin()
     {
-        $credentials = request(['email', 'password']);
+        $credentials = request(['username', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        // return $this->respondWithToken($token);
+		return response()->json([
+            'token' => $token,
+			'user' => auth()->user(),
+        ]);
     }
 
     public function postMe()
@@ -45,6 +49,22 @@ class LoginController extends Controller {
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * Crear usuario administrador
+     */
+    public function getResetUser()
+    {
+        $user = DB::select('SELECT * FROM au_users WHERE id=1');
+		if (count($user) > 0) {
+			$user = $user[0];
+			$pass = bcrypt('456');
+			DB::update('UPDATE au_users SET username=?, password=? WHERE id=1', ['admin', $pass]);
+		}
+
+
+        return response()->json(['message' => 'Successfully reseted']);
     }
 
 	public function postLoguear()
@@ -104,6 +124,20 @@ class LoginController extends Controller {
 
 	}
 
-
+/**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ]);
+    }
 
 }
