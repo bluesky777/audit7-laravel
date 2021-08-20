@@ -14,8 +14,9 @@ use DB;
 
 class LoginController extends Controller {
 
-    public function getLoadUser() {
-        return ["sfv", "9887u ff", "efvdf"];
+    public function getLoadUserFromToken() {
+
+        return response()->json(auth()->user());
     }
 
 
