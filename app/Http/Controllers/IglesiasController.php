@@ -10,7 +10,7 @@ use App\Http\Controllers\Sincronizar;
 use Carbon\Carbon;
 use \Log;
 use App\Models\ImagenModel;
-use App\Http\Controllers\Models\AuUser;
+use App\Models\User;
 
 
 use DB;
@@ -51,7 +51,7 @@ class IglesiasController extends Controller {
         }
 
 
-        if (AuUser::hasAsociacionRole($tipo_usu, true) || AuUser::hasDivisionRole($tipo_usu) || AuUser::hasUnionRole($tipo_usu)) {
+        if (User::hasAsociacionRole($tipo_usu, true) || User::hasDivisionRole($tipo_usu) || User::hasUnionRole($tipo_usu)) {
 
             $consulta       = "SELECT *, id as rowid FROM au_distritos d WHERE d.asociacion_id=? AND d.deleted_at is null";
             $distritos      = DB::select($consulta, [$asociacion_id]);
@@ -71,7 +71,7 @@ class IglesiasController extends Controller {
             return $distritos;
         }
 
-
+        return 'Datos inválidos.';
 
     }
 
@@ -163,7 +163,7 @@ class IglesiasController extends Controller {
         $propiedad  = Request::input('propiedad');
 
 
-		if (AuUser::hasUnionRole($tipo_usu, true) || AuUser::hasAsociacionRole($tipo_usu) || AuUser::hasUnionRole($tipo_usu)) {
+		if (User::hasUnionRole($tipo_usu, true) || User::hasAsociacionRole($tipo_usu) || User::hasUnionRole($tipo_usu)) {
             $consulta 	= 'UPDATE au_iglesias SET '.$propiedad.'=:valor, updated_by=:modificador, updated_at=:fecha WHERE id=:id';
             $datos 		= [
                 ':valor'		=> $valor,

@@ -22,7 +22,7 @@ AdvancedRoute::controller('login', 'LoginController');
 
 AdvancedRoute::controller('au_imagenes', 'ImagesController');
 AdvancedRoute::controller('au_propiedad', 'PropiedadController');
-AdvancedRoute::controller('au_iglesias', 'IglesiasController');
+AdvancedRoute::controller('iglesias', 'IglesiasController');
 AdvancedRoute::controller('au_asociaciones', 'AsociacionesController');
 AdvancedRoute::controller('au_uniones', 'UnionesController');
 AdvancedRoute::controller('auditorias', 'AuditoriasController');
