@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DatosIniciales;
 use App\Http\Sincronizar;
 use App\Http\Models\DatosDescarga;
+use App\Repositories;
 use App\Models\User;
 use Carbon\Carbon;
+use App\Repositories\EntidadesRepository;
 use \Log;
 
 use DB;
@@ -28,10 +30,14 @@ class LoginController extends Controller {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        $user = auth()->user();
+        $entidades = new EntidadesRepository();
+        $entidades->base($user);
+
         // return $this->respondWithToken($token);
 		return response()->json([
             'token' => $token,
-			'user' => auth()->user(),
+			'user' => $user,
         ]);
     }
 

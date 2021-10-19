@@ -41,68 +41,6 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public static function hasDivisionRole($tipo, $incluir_admin=false)
-    {
-
-        if ($tipo == 'Admin'
-            || $tipo=='Tesorero de unión'
-            || $tipo=='Coordinador de unión'
-            || $tipo=='Tesorero de división'
-            || $tipo=='Coordinador de división'){
-
-            return true;
-        }else{
-            if ($incluir_admin) {
-                if ($tipo == 'Admin'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
-
-    }
-
-
-    public static function hasUnionRole($tipo, $incluir_admin=false)
-    {
-
-        if ($tipo=='Tesorero de unión'
-            || $tipo=='Coordinador de unión'){
-
-            return true;
-        }else{
-            if ($incluir_admin) {
-                if ($tipo == 'Admin'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
-
-    }
-
-    public static function hasAsociacionRole($tipo, $incluir_admin=false)
-    {
-
-        if ($tipo=='Auditor'
-        || $tipo=='Tesorero asociación'
-        || $tipo=='Cajero de asociación'){
-
-            return true;
-        }else{
-            if ($incluir_admin) {
-                if ($tipo == 'Admin'){
-                    return true;
-                }else{
-                    return false;
-                }
-            }
-        }
-
-    }
-
 
     use HasFactory, Notifiable;
 
