@@ -1,6 +1,8 @@
 <?php namespace App\Repositories;
 
 use App\Models\User;
+use \Log;
+use \DB;
 
 
 class EntidadesRepository
@@ -9,23 +11,22 @@ class EntidadesRepository
 
         $checker = new RoleChecker();
         $role = $checker->getRole();
-        Log::info('$role '. $role);
+
         switch ($role) {
             case RoleTypes::DIVISION:
-                $object->uniones = $this->uniones();
-                Log::info('auiiiiiii');
+                $object->uniones = $this->uniones($object->division_id);
                 break;
 
             case RoleTypes::UNION:
-                $object->asociaciones = $this->asociaciones();
+                $object->asociaciones = $this->asociaciones($object->union_id);
                 break;
 
             case RoleTypes::ASOCIACION:
-                $object->distritos = $this->distritos();
+                $object->distritos = $this->distritos($object->asociacion_id);
                 break;
             
             case RoleTypes::DISTRITO:
-                $object->iglesias = $this->iglesias();
+                $object->iglesias = $this->iglesias($object->distrito_id);
                 break;
             
             default:

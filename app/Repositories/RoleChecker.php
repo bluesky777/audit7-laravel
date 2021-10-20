@@ -1,7 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\User;
-
+use \Log;
 
 abstract class RoleTypes {
     const DIVISION = 'DIVISION';
@@ -15,19 +15,18 @@ abstract class RoleTypes {
 class RoleChecker
 {
 
-    private $tipo;
+    private $user;
 
-    function __contruct(){
-        $user = auth()->user();
-        $this->tipo = $user->tipo;
+    public function __construct(){
+        $this->user = auth()->user();
     }
 
     public function getRole(){
-    
-        if($this->hasDivisionRole()){
-            return RoleTypes::DIVISION;
-        }
-        if($this->hasUnionRole()){
+        // Para más adelante cuando trabajemos con las divisiones
+        // if($this->hasDivisionRole()){
+        //     return RoleTypes::DIVISION;
+        // }
+        if($this->hasUnionRole(true)){
             return RoleTypes::UNION;
         }
         if($this->hasAsociacionRole()){
@@ -48,7 +47,8 @@ class RoleChecker
     
     public function hasDivisionRole()
     {
-        $tipo = $this->tipo;
+        $tipo = $this->user->tipo;
+        Log::info('hasDivisionRole: '.$tipo);
 
         if ($tipo == 'Admin'
             || $tipo=='Tesorero de unión'
@@ -66,7 +66,7 @@ class RoleChecker
 
     public function hasUnionRole($incluir_admin=false)
     {
-        $tipo = $this->tipo;
+        $tipo = $this->user->tipo;
         
         if ($tipo=='Tesorero de unión'
             || $tipo=='Coordinador de unión'){
@@ -86,7 +86,7 @@ class RoleChecker
 
     public function hasAsociacionRole($incluir_admin=false)
     {
-        $tipo = $this->tipo;
+        $tipo = $this->user->tipo;
         
         if ($tipo=='Auditor'
         || $tipo=='Tesorero asociación'
@@ -107,7 +107,7 @@ class RoleChecker
 
     public function hasIglesiaRole()
     {
-        $tipo = $this->tipo;
+        $tipo = $this->user->tipo;
         
         if ($tipo=='Tesorero'
         || $tipo=='Pastor'){

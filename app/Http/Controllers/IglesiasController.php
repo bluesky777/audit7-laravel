@@ -18,10 +18,11 @@ use DB;
 class IglesiasController extends Controller {
 
 
-	public function putDeAsociacion(){
-
-        $tipo_usu               = Request::input('tipo_usu');
-        $usu_id                 = Request::input('usu_id');
+	public function putDeAsociacion()
+    {
+        $user                   = auth()->user();
+        $tipo_usu               = $user->tipo;
+        $usu_id                 = $user->usu_id;
         $asociacion_id          = Request::input('asociacion_id');
         $cambiando_asociacion   = Request::input('cambiando_asociacion');
 
@@ -50,6 +51,9 @@ class IglesiasController extends Controller {
             return $distritos;
         }
 
+        $checker = new RoleChecker();
+        $role = $checker->getRole();
+        // TODO: isAuthored('Asociacion')
 
         if (User::hasAsociacionRole($tipo_usu, true) || User::hasDivisionRole($tipo_usu) || User::hasUnionRole($tipo_usu)) {
 

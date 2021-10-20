@@ -53,7 +53,7 @@ class LoginController extends Controller {
      */
     public function postLogout()
     {
-        auth()->logout();
+        //auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
