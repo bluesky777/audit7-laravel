@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use \Log;
 use App\Models\ImagenModel;
 use App\Models\User;
+use App\Repositories\RoleChecker;
+use App\Repositories\RoleTypes;
 
 
 use DB;
@@ -55,7 +57,7 @@ class IglesiasController extends Controller {
         $role = $checker->getRole();
         // TODO: isAuthored('Asociacion')
 
-        if (User::hasAsociacionRole($tipo_usu, true) || User::hasDivisionRole($tipo_usu) || User::hasUnionRole($tipo_usu)) {
+        if (RoleTypes::UNION || RoleTypes::ASOCIACION || RoleTypes::IGLESIA) {
 
             $consulta       = "SELECT *, id as rowid FROM au_distritos d WHERE d.asociacion_id=? AND d.deleted_at is null";
             $distritos      = DB::select($consulta, [$asociacion_id]);
