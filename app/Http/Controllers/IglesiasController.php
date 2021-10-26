@@ -19,6 +19,20 @@ use DB;
 
 class IglesiasController extends Controller {
 
+    public function putFind()
+    {
+        $iglesia_id     = Request::input('iglesia_id');
+
+        $consulta       = "SELECT *, id as rowid FROM au_iglesias d WHERE d.id=? AND d.deleted_at is null";
+        $iglesia        = DB::select($consulta, [$iglesia_id]);
+
+        if(count($iglesia)) {
+            $iglesia = $iglesia[0];
+        }
+
+        return $iglesia;
+    }
+
 
 	public function putDeAsociacion()
     {
